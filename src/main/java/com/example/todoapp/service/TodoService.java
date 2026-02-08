@@ -1,6 +1,7 @@
 package com.example.todoapp.service;
 
 import com.example.todoapp.domain.Todo;
+import com.example.todoapp.dto.TodoCreateRequest;
 import com.example.todoapp.dto.TodoResponse;
 import com.example.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
@@ -35,4 +36,20 @@ public class TodoService {
             todoRepository.save(new Todo("DB連携を理解する", true));
         }
     }
+    public TodoResponse create(TodoCreateRequest request) {
+
+        Todo todo = new Todo(
+                request.getTitle(),
+                false
+        );
+
+        Todo saved = todoRepository.save(todo);
+
+        return new TodoResponse(
+                saved.getId(),
+                saved.getTitle(),
+                saved.isCompleted()
+        );
+    }
+
 }
