@@ -2,6 +2,7 @@ package com.example.todoapp.service;
 
 import com.example.todoapp.domain.Todo;
 import com.example.todoapp.dto.TodoResponse;
+import com.example.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,13 +10,15 @@ import java.util.List;
 @Service
 public class TodoService {
 
-    public List<TodoResponse> findAll() {
-        List<Todo> todos = List.of(
-                new Todo(1L, "DTOとService理解", true),
-                new Todo(2L, "現場っぽい構成にする", false)
-        );
+    private final TodoRepository todoRepository;
 
-        return todos.stream()
+    public TodoService(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
+
+    public List<TodoResponse> findAll() {
+        return todoRepository.findAll()
+                .stream()
                 .map(todo ->
                         new TodoResponse(
                                 todo.getId(),
@@ -24,5 +27,12 @@ public class TodoService {
                         )
                 )
                 .toList();
+    }
+
+    public void createSampleTodosIfEmpty() {
+        if (todoRepository.count() == 0) {
+            todoRepository.save(new Todo("H2に保存されたTODO", false));
+            todoRepository.save(new Todo("DB連携を理解する", true));
+        }
     }
 }
