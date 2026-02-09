@@ -1,9 +1,23 @@
-### GET request to example server
+### GET
+GET http://localhost:8080/todos
+
+### POST
 POST http://localhost:8080/todos
 Content-Type: application/json
 
 {
-  "title": "HTTP Clientから登録"
+  "title": "IDEAから登録",
+  "completed": false
 }
 
-###
+### PUT
+PUT http://localhost:8080/todos/1
+Content-Type: application/json
+
+{
+  "title": "IDEAから更新",
+  "completed": true
+}
+
+### DELETE
+DELETE http://localhost:8080/todos/1

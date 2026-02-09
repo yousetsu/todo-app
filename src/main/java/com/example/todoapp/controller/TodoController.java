@@ -1,13 +1,12 @@
 package com.example.todoapp.controller;
 
+import com.example.todoapp.domain.Todo;
 import com.example.todoapp.dto.TodoCreateRequest;
 import com.example.todoapp.dto.TodoResponse;
 import com.example.todoapp.service.TodoService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,4 +29,19 @@ public class TodoController {
     ) {
         return todoService.create(request);
     }
+    @PutMapping("/todos/{id}")
+    public ResponseEntity<Todo> updateTodo(
+            @PathVariable Long id,
+            @RequestBody Todo todoRequest) {
+
+        Todo updated = todoService.update(id, todoRequest);
+        return ResponseEntity.ok(updated);
+    }
+    @DeleteMapping("/todos/{id}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
+        todoService.delete(id);
+        return ResponseEntity.noContent().build(); // 204
+    }
+
+
 }

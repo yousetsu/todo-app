@@ -3,6 +3,7 @@ package com.example.todoapp.service;
 import com.example.todoapp.domain.Todo;
 import com.example.todoapp.dto.TodoCreateRequest;
 import com.example.todoapp.dto.TodoResponse;
+import com.example.todoapp.exception.ResourceNotFoundException;
 import com.example.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,23 @@ public class TodoService {
                 saved.getTitle(),
                 saved.isCompleted()
         );
+    }
+    public Todo update(Long id, Todo request) {
+
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Todo not found"));
+
+        todo.setTitle(request.getTitle());
+        todo.setCompleted(request.isCompleted());
+
+        return todoRepository.save(todo);
+    }
+    public void delete(Long id) {
+
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Todo not found"));
+
+        todoRepository.delete(todo);
     }
 
 }
