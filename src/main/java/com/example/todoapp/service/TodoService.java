@@ -17,7 +17,12 @@ public class TodoService {
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
-
+/*
+  1.todoRepository.findAll() がList を返す
+  2.その List に対して .stream()
+  3.map(...) で DTO へ変換
+  4.toList() で List に戻す
+ */
     public List<TodoResponse> findAll() {
         return todoRepository.findAll()
                 .stream()
@@ -30,7 +35,19 @@ public class TodoService {
                 )
                 .toList();
     }
-
+/* 同じ処理
+//    List<Todo> todos = todoRepository.findAll();   // DBからTodoの一覧を取得
+//
+//    List<TodoResponse> responses = new java.util.ArrayList<>();
+//    for (Todo todo : todos) {                      // 1件ずつ取り出す
+//        responses.add(new TodoResponse(
+//                todo.getId(),
+//                todo.getTitle(),
+//                todo.isCompleted()
+//        ));
+//    }
+//    return responses;
+ */
     public void createSampleTodosIfEmpty() {
         if (todoRepository.count() == 0) {
             todoRepository.save(new Todo("H2に保存されたTODO", false));
