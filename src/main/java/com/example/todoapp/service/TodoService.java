@@ -12,7 +12,7 @@ import com.example.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+//pull requestテスト
 @Service
 public class TodoService {
 
@@ -75,7 +75,6 @@ public class TodoService {
         );
 
         Todo saved = todoRepository.save(todo);
-
         return new TodoResponse(
                 saved.getId(),
                 saved.getTitle(),
@@ -100,7 +99,6 @@ public TodoResponse update(Long id, TodoUpdateRequest request) {
 
     todo.setTitle(request.getTitle());
     todo.setCompleted(request.isCompleted());
-
     Todo saved = todoRepository.save(todo);
 
     return new TodoResponse(saved.getId(), saved.getTitle(), saved.isCompleted());
@@ -110,10 +108,8 @@ public TodoResponse update(Long id, TodoUpdateRequest request) {
     @Transactional
     // postgre ins end
     public void delete(Long id) {
-
         Todo todo = todoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Todo not found"));
-
         todoRepository.delete(todo);
     }
 
