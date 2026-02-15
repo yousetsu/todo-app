@@ -1,6 +1,10 @@
 package com.example.todoapp.controller;
 
-import com.example.todoapp.domain.Todo;
+
+// postgre upd start
+//import com.example.todoapp.domain.Todo;
+import com.example.todoapp.dto.TodoUpdateRequest;
+// postgre upd end
 import com.example.todoapp.dto.TodoCreateRequest;
 import com.example.todoapp.dto.TodoResponse;
 import com.example.todoapp.service.TodoService;
@@ -29,14 +33,24 @@ public class TodoController {
     ) {
         return todoService.create(request);
     }
+    // postgre upd start
+//    @PutMapping("/todos/{id}")
+//    public ResponseEntity<Todo> updateTodo(
+//            @PathVariable Long id,
+//            @RequestBody Todo todoRequest) {
+//
+//        Todo updated = todoService.update(id, todoRequest);
+//        return ResponseEntity.ok(updated);
+//    }
     @PutMapping("/todos/{id}")
-    public ResponseEntity<Todo> updateTodo(
+    public TodoResponse updateTodo(
             @PathVariable Long id,
-            @RequestBody Todo todoRequest) {
-
-        Todo updated = todoService.update(id, todoRequest);
-        return ResponseEntity.ok(updated);
+            @RequestBody @Valid TodoUpdateRequest request
+    ) {
+        return todoService.update(id, request);
     }
+    // postgre upd end
+
     @DeleteMapping("/todos/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
         todoService.delete(id);
