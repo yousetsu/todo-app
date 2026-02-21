@@ -12,8 +12,6 @@ import com.example.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-//pull requestテスト 1-2
-//pull requestテスト ２もう1行書いてみました
 @Service
 public class TodoService {
 
