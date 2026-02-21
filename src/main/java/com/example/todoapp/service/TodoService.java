@@ -12,7 +12,6 @@ import com.example.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-//pull requestテスト 2026/2/21
 @Service
 public class TodoService {
 
