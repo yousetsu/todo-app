@@ -12,8 +12,6 @@ import com.example.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-
 @Service
 public class TodoService {
 
