@@ -16,13 +16,17 @@ public class Todo {
     @Column(nullable = false)
     private boolean completed;
 
+    @Column(nullable = false)
+    private String note;
+
     protected Todo() {
         // JPA用（必須）
     }
 
-    public Todo(String title, boolean completed) {
+    public Todo(String title, boolean completed,String note) {
         this.title = title;
         this.completed = completed;
+        this.note = note;
     }
 
     public Long getId() {
@@ -37,6 +41,10 @@ public class Todo {
         return completed;
     }
 
+    public String getNote() {
+        return note;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -44,4 +52,6 @@ public class Todo {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
+    public void setNote(String note) {this.title = note;}
 }

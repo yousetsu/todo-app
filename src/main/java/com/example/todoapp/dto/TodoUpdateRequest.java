@@ -6,11 +6,16 @@ public class TodoUpdateRequest {
 
     @NotBlank
     private String title;
+    private String note;
 
     private boolean completed;
 
     public String getTitle() {
         return title;
+    }
+
+    public String getNote() {
+        return note;
     }
 
     public void setTitle(String title) {
@@ -23,6 +28,10 @@ public class TodoUpdateRequest {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
 // postgre ins end

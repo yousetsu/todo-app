@@ -12,8 +12,8 @@ import com.example.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-//pull requestテスト 1-2
-//pull requestテスト ２もう1行書いてみました
+
+
 @Service
 public class TodoService {
 
@@ -38,7 +38,8 @@ public class TodoService {
                         new TodoResponse(
                                 todo.getId(),
                                 todo.getTitle(),
-                                todo.isCompleted()
+                                todo.isCompleted(),
+                                todo.getNote()
                         )
                 )
                 .toList();
@@ -61,8 +62,8 @@ public class TodoService {
 // postgre ins end
     public void createSampleTodosIfEmpty() {
         if (todoRepository.count() == 0) {
-            todoRepository.save(new Todo("H2に保存されたTODO", false));
-            todoRepository.save(new Todo("DB連携を理解する", true));
+            todoRepository.save(new Todo("H2に保存されたTODO", false,"note1"));
+            todoRepository.save(new Todo("DB連携を理解する", true,"note2"));
         }
     }
     // postgre ins start
@@ -72,14 +73,16 @@ public class TodoService {
 
         Todo todo = new Todo(
                 request.getTitle(),
-                false
+                false,
+                request.getNote()
         );
 
         Todo saved = todoRepository.save(todo);
         return new TodoResponse(
                 saved.getId(),
                 saved.getTitle(),
-                saved.isCompleted()
+                saved.isCompleted(),
+                saved.getNote()
         );
     }
    // postgre upd start
@@ -102,7 +105,7 @@ public TodoResponse update(Long id, TodoUpdateRequest request) {
     todo.setCompleted(request.isCompleted());
     Todo saved = todoRepository.save(todo);
 
-    return new TodoResponse(saved.getId(), saved.getTitle(), saved.isCompleted());
+    return new TodoResponse(saved.getId(), saved.getTitle(), saved.isCompleted(), saved.getNote());
 }
     // postgre upd end
     // postgre ins start
