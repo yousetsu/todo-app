@@ -1,29 +1,25 @@
 package com.example.todoapp.domain;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "todos")
+/**
+ * TODOドメインモデル
+ * MyBatis用Pojoクラス
+ */
 public class Todo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String title;
-
-    @Column(nullable = false)
     private boolean completed;
-
-    @Column(nullable = false)
     private String note;
+    // private LocalDateTime createdAt;
+    // private LocalDateTime updatedAt;
 
-    protected Todo() {
-        // JPA用（必須）
+    public Todo() {
+        // デフォルトコンストラクタ
     }
 
-    public Todo(String title, boolean completed,String note) {
+    public Todo(String title, boolean completed, String note) {
         this.title = title;
         this.completed = completed;
         this.note = note;
@@ -33,25 +29,47 @@ public class Todo {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public String getNote() {
-        return note;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
-    public void setNote(String note) {this.title = note;}
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    // public LocalDateTime getCreatedAt() {
+    //     return createdAt;
+    // }
+
+    // public void setCreatedAt(LocalDateTime createdAt) {
+    //     this.createdAt = createdAt;
+    // }
+
+    // public LocalDateTime getUpdatedAt() {
+    //     return updatedAt;
+    // }
+
+    // public void setUpdatedAt(LocalDateTime updatedAt) {
+    //     this.updatedAt = updatedAt;
+    // }
 }

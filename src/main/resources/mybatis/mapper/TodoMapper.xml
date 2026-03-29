@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.todoapp.mapper.TodoMapper">
+
+    <!-- Todoオブジェクトの結果マッピング定義 -->
+    <resultMap id="TodoResultMap" type="com.example.todoapp.domain.Todo">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="completed" property="completed"/>
+        <result column="note" property="note"/>
+        <!-- <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/> -->
+    </resultMap>
+
+    <!-- すべてのTODOを取得 -->
+    <select id="findAll" resultMap="TodoResultMap">
+        SELECT id, title, completed, note
+        FROM todos
+        ORDER BY id
+    </select>
+
+    <!-- IDでTODOを取得 -->
+    <select id="findById" parameterType="java.lang.Long" resultMap="TodoResultMap">
+        SELECT id, title, completed, note
+        FROM todos
+        WHERE id = #{id}
+    </select>
+
+    <!-- TODOを挿入 -->
+    <insert id="insert" parameterType="com.example.todoapp.domain.Todo"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO todos (title, completed, note)
+        VALUES (#{title}, #{completed}, #{note})
+    </insert>
+
+    <!-- TODOを更新 -->
+    <update id="update" parameterType="com.example.todoapp.domain.Todo">
+        UPDATE todos
+        SET title = #{title},
+            completed = #{completed},
+            note = #{note}
+            <!-- updated_at = NOW() -->
+        WHERE id = #{id}
+    </update>
+
+    <!-- IDでTODOを削除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM todos
+        WHERE id = #{id}
+    </delete>
+
+    <!-- すべてのTODOを削除 -->
+    <delete id="deleteAll">
+        DELETE FROM todos
+    </delete>
+
+    <!-- TODOの総数を取得 -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM todos
+    </select>
+
+</mapper>
