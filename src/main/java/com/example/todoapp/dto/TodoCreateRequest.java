@@ -14,7 +14,6 @@ public class TodoCreateRequest {
         return note;
     }
 
-    // ★これが必要
     public void setTitle(String title) {
         this.title = title;
     }

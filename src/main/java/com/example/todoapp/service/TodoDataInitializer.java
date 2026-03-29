@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class TodoDataInitializer {
 
     @Bean
-    ApplicationRunner init(TodoService todoService) {
+    ApplicationRunner init(ITodoService todoService) {
         return args -> todoService.createSampleTodosIfEmpty();
     }
 }

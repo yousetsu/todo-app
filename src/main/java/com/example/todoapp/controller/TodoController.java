@@ -7,7 +7,7 @@ import com.example.todoapp.dto.TodoUpdateRequest;
 // postgre upd end
 import com.example.todoapp.dto.TodoCreateRequest;
 import com.example.todoapp.dto.TodoResponse;
-import com.example.todoapp.service.TodoService;
+import com.example.todoapp.service.ITodoService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +17,9 @@ import java.util.List;
 @RestController
 public class TodoController {
 
-    private final TodoService todoService;
+    private final ITodoService todoService;
 
-    public TodoController(TodoService todoService) {
+    public TodoController(ITodoService todoService) {
         this.todoService = todoService;
     }
 
